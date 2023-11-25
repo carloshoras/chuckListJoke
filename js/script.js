@@ -21,7 +21,7 @@ fetchJoke.addEventListener("click", ()=>{
     fetch("https://api.chucknorris.io/jokes/random")
     .then((respuesta) => {
         if (!respuesta.ok) {
-            throw new Error ("Error");
+            throw new Error ("No se ha podido completar la solicitud");
         }
         return respuesta.json() 
     })
