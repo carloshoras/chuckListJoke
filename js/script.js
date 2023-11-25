@@ -1,12 +1,21 @@
 const jokeList = document.getElementById("jokeList");
 const fetchJoke = document.getElementById("fetchJoke");
+fetchJoke.insertAdjacentHTML('afterend', '<button id="deleteJokes">Borrar chistes</button>')
+const deleteJokes = document.getElementById("deleteJokes")
 
-const registroChiste = JSON.parse(localStorage.getItem("registroChiste")) || {}
+let registroChiste = JSON.parse(localStorage.getItem("registroChiste")) || {}
 let contador = localStorage.getItem("contador") || 0
 
 let botonesEliminar = []
 
 printuser()
+
+deleteJokes.addEventListener('click', () => {
+    localStorage.clear()
+    registroChiste = {}
+    contador = 0
+    printuser()
+})
 
 fetchJoke.addEventListener("click", ()=>{
     fetch("https://api.chucknorris.io/jokes/random")
@@ -38,9 +47,7 @@ function printuser () {
 function Eliminar() {
     botonesEliminar.forEach((boton) => {
         boton.addEventListener('click', () => {
-            console.log("helo")
             const chisteEliminado = boton.dataset.chiste;
-            console.log(chisteEliminado)
             delete registroChiste[chisteEliminado]
             localStorage.setItem("registroChiste", JSON.stringify(registroChiste))
             printuser()
